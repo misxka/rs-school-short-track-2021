@@ -12,15 +12,15 @@
 function getCommonCharacterCount(s1, s2) {
   const firstElements = {};
   let sum = 0;
-  s1.split().forEach((elem) => {
-    if (firstElements[elem] === 'undefined') {
+  s1.split('').forEach((elem) => {
+    if (firstElements[elem] === undefined) {
       firstElements[elem] = 1;
     } else {
       firstElements[elem]++;
     }
   });
-  s2.split().forEach((elem) => {
-    if (firstElements[elem] !== 'undefined' && firstElements[elem] > 0) {
+  s2.split('').forEach((elem) => {
+    if (firstElements[elem] !== undefined && firstElements[elem] > 0) {
       sum++;
       firstElements[elem]--;
     }

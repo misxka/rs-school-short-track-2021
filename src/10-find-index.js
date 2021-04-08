@@ -12,15 +12,16 @@
  *
  */
 function findIndex(array, value) {
-  const first = 0;
-  const last = array.length - 1;
-  if (first <= last) {
-    const middle = Math.floor((first + last) / 2);
-    if (value === array[middle]) return middle;
-    if (value < array[middle]) return findIndex(array.slice(0, middle), value);
-    return (middle + 1) + findIndex(array.slice(middle + 1), value);
-  }
-  return -1;
+  const binarySearch = function(arr, first, last, val) {
+    if (first <= last) {
+      const middle = Math.floor((first + last) / 2);
+      if (val === arr[middle]) return middle;
+      if (val < arr[middle]) return binarySearch(arr, first, middle - 1, val);
+      return binarySearch(arr, middle + 1, last, val);
+    }
+    return -1;
+  };
+  return binarySearch(array, 0, array.length - 1, value);
 }
 
 module.exports = findIndex;

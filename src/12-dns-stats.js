@@ -11,7 +11,7 @@
  *  'yandex.ru'
  * ]
  *
- * The result should be the following:
+ * The resultObj should be the following:
  * {
  *   '.ru': 3,
  *   '.ru.yandex': 3,
@@ -20,8 +20,30 @@
  * }
  *
  */
-function getDNSStats(/* domains */) {
-  throw new Error('Not implemented');
+function getDNSStats(domains) {
+  const reversedDomains = [];
+  domains.forEach((elem) => {
+    reversedDomains.push(elem.split('.').reverse().join('.'));
+  });
+  reversedDomains.sort();
+  const resultObj = {};
+  reversedDomains.forEach((elem) => {
+    const tempArr = elem.split('.');
+    let str = '';
+    for (let i = 0; i < tempArr.length; i++) {
+      if (i === 0) str = tempArr[i];
+      else str = `${str}.${tempArr[i]}`;
+      resultObj[str] = 0;
+    }
+  });
+  Object.keys(resultObj).forEach((property) => {
+    let sum = 0;
+    for (let j = 0; j < reversedDomains.length; j++) {
+      if (reversedDomains[j].includes(property)) sum++;
+    }
+    resultObj[property] = sum;
+  });
+  return resultObj;
 }
 
 module.exports = getDNSStats;
